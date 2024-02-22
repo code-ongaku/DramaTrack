@@ -10,7 +10,7 @@ namespace DramaTrack
         private void btnStoredKdrama_Click(object sender, EventArgs e)
         {
             Hide();
-            Form1 form = new Form1();
+            KDramaForm form = new KDramaForm();
             form.ShowDialog();
             Close();
         }

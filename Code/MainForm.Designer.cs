@@ -39,9 +39,9 @@
             btnStoredKdrama.Dock = DockStyle.Bottom;
             btnStoredKdrama.Font = new Font("Cambria", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnStoredKdrama.ForeColor = Color.MidnightBlue;
-            btnStoredKdrama.Location = new Point(0, 220);
+            btnStoredKdrama.Location = new Point(0, 307);
             btnStoredKdrama.Name = "btnStoredKdrama";
-            btnStoredKdrama.Size = new Size(328, 109);
+            btnStoredKdrama.Size = new Size(543, 109);
             btnStoredKdrama.TabIndex = 0;
             btnStoredKdrama.Text = "Check Stored KDramas";
             btnStoredKdrama.UseVisualStyleBackColor = false;
@@ -53,9 +53,9 @@
             btnNewKdrama.Dock = DockStyle.Bottom;
             btnNewKdrama.Font = new Font("Cambria", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnNewKdrama.ForeColor = Color.MidnightBlue;
-            btnNewKdrama.Location = new Point(0, 111);
+            btnNewKdrama.Location = new Point(0, 198);
             btnNewKdrama.Name = "btnNewKdrama";
-            btnNewKdrama.Size = new Size(328, 109);
+            btnNewKdrama.Size = new Size(543, 109);
             btnNewKdrama.TabIndex = 1;
             btnNewKdrama.Text = "Enter a New KDrama";
             btnNewKdrama.UseVisualStyleBackColor = false;
@@ -66,7 +66,7 @@
             lblWelcome.Anchor = AnchorStyles.Top;
             lblWelcome.AutoSize = true;
             lblWelcome.Font = new Font("Lucida Calligraphy", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblWelcome.Location = new Point(90, 51);
+            lblWelcome.Location = new Point(197, 51);
             lblWelcome.Name = "lblWelcome";
             lblWelcome.Size = new Size(142, 23);
             lblWelcome.TabIndex = 2;
@@ -77,7 +77,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Plum;
-            ClientSize = new Size(328, 329);
+            ClientSize = new Size(543, 416);
             Controls.Add(lblWelcome);
             Controls.Add(btnNewKdrama);
             Controls.Add(btnStoredKdrama);

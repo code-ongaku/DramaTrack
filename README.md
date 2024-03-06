@@ -4,8 +4,8 @@ An episode tracking system mainly for KDramas
 ## Windows Forms App (.NET Framework) vs Windows Forms App (.NET Core)
 ### Chose Windows Forms App (.NET Framework) due to OS compatibility
 
-## SQLite
-## Why?
+## Database: DB Browser for SQLite; System.Data.SQLite
+## Why use SQLite?
   SQLite is Serverless: SQLite does not require a separate server process to operate. It's self-contained and doesn't have any external dependencies, making it perfect for standalone applications.
   
   SQLite is Cross-Platform: SQLite databases can be easily deployed across various platforms, including Windows, macOS, Linux, Android, and iOS. This means the application can run on devices with different operating systems without any compatibility issues.

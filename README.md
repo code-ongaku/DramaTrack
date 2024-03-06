@@ -13,3 +13,6 @@ An episode tracking system mainly for KDramas
   SQLite is Lightweight: SQLite is lightweight and has a small footprint, making it suitable for embedding in applications. SQLite database file can be included directly with the application, simplifying deployment and avoiding the need for users to install additional software.
   
   SQLite Supports SQL Queries: SQLite supports a subset of SQL queries, allowing operations like adding, updating, and querying kdrama episode data easily. It's powerful enough to handle more than 50 kdramas without any performance issues.
+
+
+``` Project build inspired by the development of standalone applications during my internship as an Automation Student ```

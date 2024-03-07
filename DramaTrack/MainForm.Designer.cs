@@ -28,34 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            btnStoredKdrama = new Button();
+            btnModifyKdrama = new Button();
             btnNewKdrama = new Button();
             lblWelcome = new Label();
+            dataGridView1 = new DataGridView();
+            btnDelete = new Button();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
-            // btnStoredKdrama
+            // btnModifyKdrama
             // 
-            btnStoredKdrama.BackColor = Color.Lavender;
-            btnStoredKdrama.Dock = DockStyle.Bottom;
-            btnStoredKdrama.Font = new Font("Cambria", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnStoredKdrama.ForeColor = Color.MidnightBlue;
-            btnStoredKdrama.Location = new Point(0, 307);
-            btnStoredKdrama.Name = "btnStoredKdrama";
-            btnStoredKdrama.Size = new Size(543, 109);
-            btnStoredKdrama.TabIndex = 0;
-            btnStoredKdrama.Text = "Check Stored KDramas";
-            btnStoredKdrama.UseVisualStyleBackColor = false;
-            btnStoredKdrama.Click += btnStoredKdrama_Click;
+            btnModifyKdrama.BackColor = Color.Lavender;
+            btnModifyKdrama.Font = new Font("Cambria", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnModifyKdrama.ForeColor = Color.MidnightBlue;
+            btnModifyKdrama.Location = new Point(306, 112);
+            btnModifyKdrama.Name = "btnModifyKdrama";
+            btnModifyKdrama.Size = new Size(163, 59);
+            btnModifyKdrama.TabIndex = 0;
+            btnModifyKdrama.Text = "Modify Stored KDramas";
+            btnModifyKdrama.UseVisualStyleBackColor = false;
+            btnModifyKdrama.Click += btnModifyKdrama_Click;
             // 
             // btnNewKdrama
             // 
             btnNewKdrama.BackColor = Color.Lavender;
-            btnNewKdrama.Dock = DockStyle.Bottom;
             btnNewKdrama.Font = new Font("Cambria", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnNewKdrama.ForeColor = Color.MidnightBlue;
-            btnNewKdrama.Location = new Point(0, 198);
+            btnNewKdrama.Location = new Point(12, 112);
             btnNewKdrama.Name = "btnNewKdrama";
-            btnNewKdrama.Size = new Size(543, 109);
+            btnNewKdrama.Size = new Size(169, 59);
             btnNewKdrama.TabIndex = 1;
             btnNewKdrama.Text = "Enter a New KDrama";
             btnNewKdrama.UseVisualStyleBackColor = false;
@@ -72,25 +73,55 @@
             lblWelcome.TabIndex = 2;
             lblWelcome.Text = "WELCOME c:";
             // 
+            // dataGridView1
+            // 
+            dataGridView1.BackgroundColor = Color.MistyRose;
+            dataGridView1.BorderStyle = BorderStyle.Fixed3D;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Dock = DockStyle.Bottom;
+            dataGridView1.Location = new Point(0, 228);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersWidth = 51;
+            dataGridView1.Size = new Size(543, 188);
+            dataGridView1.TabIndex = 3;
+            // 
+            // btnDelete
+            // 
+            btnDelete.BackColor = Color.Lavender;
+            btnDelete.Font = new Font("Cambria", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnDelete.ForeColor = Color.MidnightBlue;
+            btnDelete.Location = new Point(447, 191);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(84, 31);
+            btnDelete.TabIndex = 4;
+            btnDelete.Text = "Delete";
+            btnDelete.UseVisualStyleBackColor = false;
+            btnDelete.Click += btnDelete_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Plum;
             ClientSize = new Size(543, 416);
+            Controls.Add(btnDelete);
+            Controls.Add(dataGridView1);
             Controls.Add(lblWelcome);
             Controls.Add(btnNewKdrama);
-            Controls.Add(btnStoredKdrama);
+            Controls.Add(btnModifyKdrama);
             Name = "MainForm";
             Text = "DramaTrack";
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Button btnStoredKdrama;
+        private Button btnModifyKdrama;
         private Button btnNewKdrama;
         private Label lblWelcome;
+        private DataGridView dataGridView1;
+        private Button btnDelete;
     }
 }

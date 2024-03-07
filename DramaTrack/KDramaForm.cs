@@ -8,101 +8,37 @@ namespace DramaTrack
 {
     public partial class KDramaForm : Form
     {
-
-        private string connectionString = @"data source=C:\Users\RumaisaT\source\own\DramaTrack\Database\Dramabase.db;";
+        public string Title { get { return txtTitle.Text; } }
+        public string Genre { get { return txtGenre.Text; } }
+        public int TotalEpisodes { get { return int.Parse(txtTotalEps.Text); } }
+        public string ProgressStatus { get { return txtProgress.Text; } }
 
         public KDramaForm()
         {
             InitializeComponent();
-            PopulateKDramaDataGridView();      // Populate DataGridView with KDrama entries from the database
 
         }
-
-        private void PopulateKDramaDataGridView()
+        private void btnSave_Click(object sender, EventArgs e)
         {
-            //connection object
-            SQLiteConnection conn = new SQLiteConnection(connectionString);
-            conn.Open();
-
-            // command object
-            string query = "SELECT * from KDramaList";
-            SQLiteCommand cmd = new SQLiteCommand(query, conn);
-
-            DataTable dt = new DataTable();
-            SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
-            adapter.Fill(dt);
-
-            dataGridView1.DataSource = dt;
-        }
-
-        private void btnEdit_Click(object sender, EventArgs e)
-        {
-            // Check if any row is selected
-            if (dataGridView1.SelectedRows.Count == 0)
+            // Validate form input here if needed
+            // For example, ensure that required fields are filled out
+            int totalEpisodes;
+            if (!int.TryParse(txtTotalEps.Text, out totalEpisodes))
             {
-                MessageBox.Show("Please select a KDrama entry to edit.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Please enter a valid number for Total Episodes.", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // Enable DataGridView editing mode
-            dataGridView1.ReadOnly = false;
-            dataGridView1.BeginEdit(true);
+            // Close the form and return DialogResult.OK
+            DialogResult = DialogResult.OK;
+            Close();
         }
 
-        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
-            // Get the edited KDrama entry's details
-            int rowIndex = e.RowIndex;
-            int colIndex = e.ColumnIndex;
-            int dramaId = Convert.ToInt32(dataGridView1.Rows[rowIndex].Cells["ID"].Value);
-            string columnName = dataGridView1.Columns[colIndex].Name;
-            string newValue = dataGridView1.Rows[rowIndex].Cells[colIndex].Value.ToString();
-
-            // Update the corresponding record in the database
-            string updateQuery = $"UPDATE KDramaList SET {columnName} = @NewValue WHERE ID = {dramaId}";
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
-            {
-                conn.Open();
-                using (SQLiteCommand cmd = new SQLiteCommand(updateQuery, conn))
-                {
-                    cmd.Parameters.AddWithValue("@NewValue", newValue);
-                    cmd.ExecuteNonQuery();
-                }
-            }
-
-            // Disable DataGridView editing mode after editing is finished
-            dataGridView1.ReadOnly = true;
-        }
-
-
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            // Check if any row is selected
-            if (dataGridView1.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Please select a KDrama entry to delete.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            // Prompt user for confirmation
-            DialogResult result = MessageBox.Show("Are you sure you want to delete this KDrama entry?", "Confirmation", MessageBoxButtons.OKCancel);
-
-            // If user confirms deletion
-            if (result == DialogResult.OK)
-            {
-                // Delete the selected KDrama entry from the database
-                int dramaId = Convert.ToInt32(dataGridView1.CurrentRow.Cells["ID"].Value);
-                using (SQLiteConnection conn = new SQLiteConnection(connectionString))
-                {
-                    conn.Open();
-                    string deleteQuery = $"DELETE FROM KDramaList WHERE ID = {dramaId}";
-                    using SQLiteCommand cmd = new SQLiteCommand(deleteQuery, conn);
-                    cmd.ExecuteNonQuery();
-                }
-
-                // Refresh the DataGridView
-                PopulateKDramaDataGridView();
-            }
+            // Close the form without saving
+            DialogResult = DialogResult.Cancel;
+            Close();
         }
     }
 }

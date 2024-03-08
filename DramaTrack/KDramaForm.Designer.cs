@@ -38,9 +38,11 @@
             btnCancel = new Button();
             lblTitle = new Label();
             lblGenre = new Label();
-            label4 = new Label();
-            label5 = new Label();
-            label6 = new Label();
+            lblTotalEps = new Label();
+            lblCompEps = new Label();
+            lblProgress = new Label();
+            cmbTitle = new ComboBox();
+            label2 = new Label();
             SuspendLayout();
             // 
             // label1
@@ -49,7 +51,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Cambria", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.DarkMagenta;
-            label1.Location = new Point(151, 32);
+            label1.Location = new Point(107, 32);
             label1.Name = "label1";
             label1.Size = new Size(157, 27);
             label1.TabIndex = 0;
@@ -61,7 +63,6 @@
             txtTitle.Location = new Point(164, 117);
             txtTitle.Multiline = true;
             txtTitle.Name = "txtTitle";
-            txtTitle.ReadOnly = true;
             txtTitle.Size = new Size(125, 34);
             txtTitle.TabIndex = 1;
             // 
@@ -71,7 +72,6 @@
             txtGenre.Location = new Point(164, 157);
             txtGenre.Multiline = true;
             txtGenre.Name = "txtGenre";
-            txtGenre.ReadOnly = true;
             txtGenre.Size = new Size(125, 34);
             txtGenre.TabIndex = 2;
             // 
@@ -81,7 +81,6 @@
             txtCompleted.Location = new Point(164, 237);
             txtCompleted.Multiline = true;
             txtCompleted.Name = "txtCompleted";
-            txtCompleted.ReadOnly = true;
             txtCompleted.Size = new Size(125, 34);
             txtCompleted.TabIndex = 3;
             // 
@@ -91,7 +90,6 @@
             txtTotalEps.Location = new Point(164, 197);
             txtTotalEps.Multiline = true;
             txtTotalEps.Name = "txtTotalEps";
-            txtTotalEps.ReadOnly = true;
             txtTotalEps.Size = new Size(125, 34);
             txtTotalEps.TabIndex = 4;
             // 
@@ -101,7 +99,6 @@
             txtProgress.Location = new Point(164, 277);
             txtProgress.Multiline = true;
             txtProgress.Name = "txtProgress";
-            txtProgress.ReadOnly = true;
             txtProgress.Size = new Size(125, 34);
             txtProgress.TabIndex = 5;
             // 
@@ -119,7 +116,7 @@
             // btnCancel
             // 
             btnCancel.BackColor = Color.MistyRose;
-            btnCancel.Location = new Point(345, 349);
+            btnCancel.Location = new Point(271, 349);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(103, 47);
             btnCancel.TabIndex = 7;
@@ -130,7 +127,7 @@
             // lblTitle
             // 
             lblTitle.AutoSize = true;
-            lblTitle.Location = new Point(55, 120);
+            lblTitle.Location = new Point(120, 120);
             lblTitle.Name = "lblTitle";
             lblTitle.Size = new Size(38, 20);
             lblTitle.TabIndex = 8;
@@ -139,48 +136,70 @@
             // lblGenre
             // 
             lblGenre.AutoSize = true;
-            lblGenre.Location = new Point(55, 160);
+            lblGenre.Location = new Point(110, 160);
             lblGenre.Name = "lblGenre";
             lblGenre.Size = new Size(48, 20);
             lblGenre.TabIndex = 9;
             lblGenre.Text = "Genre";
             // 
-            // label4
+            // lblTotalEps
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(55, 200);
-            label4.Name = "label4";
-            label4.Size = new Size(50, 20);
-            label4.TabIndex = 10;
-            label4.Text = "label4";
+            lblTotalEps.AutoSize = true;
+            lblTotalEps.Location = new Point(55, 200);
+            lblTotalEps.Name = "lblTotalEps";
+            lblTotalEps.Size = new Size(105, 20);
+            lblTotalEps.TabIndex = 10;
+            lblTotalEps.Text = "Total Episodes";
             // 
-            // label5
+            // lblCompEps
             // 
-            label5.AutoSize = true;
-            label5.Location = new Point(55, 240);
-            label5.Name = "label5";
-            label5.Size = new Size(50, 20);
-            label5.TabIndex = 11;
-            label5.Text = "label5";
+            lblCompEps.AutoSize = true;
+            lblCompEps.Location = new Point(14, 240);
+            lblCompEps.Name = "lblCompEps";
+            lblCompEps.Size = new Size(146, 20);
+            lblCompEps.TabIndex = 11;
+            lblCompEps.Text = "Completed Episodes";
             // 
-            // label6
+            // lblProgress
             // 
-            label6.AutoSize = true;
-            label6.Location = new Point(55, 280);
-            label6.Name = "label6";
-            label6.Size = new Size(50, 20);
-            label6.TabIndex = 12;
-            label6.Text = "label6";
+            lblProgress.AutoSize = true;
+            lblProgress.Location = new Point(51, 280);
+            lblProgress.Name = "lblProgress";
+            lblProgress.Size = new Size(109, 20);
+            lblProgress.TabIndex = 12;
+            lblProgress.Text = "Progress Status";
+            // 
+            // cmbTitle
+            // 
+            cmbTitle.AllowDrop = true;
+            cmbTitle.BackColor = Color.FromArgb(255, 224, 192);
+            cmbTitle.FormattingEnabled = true;
+            cmbTitle.Location = new Point(165, 78);
+            cmbTitle.Name = "cmbTitle";
+            cmbTitle.Size = new Size(124, 28);
+            cmbTitle.TabIndex = 13;
+            cmbTitle.SelectedIndexChanged += new System.EventHandler(cmbTitle_SelectedIndexChanged);
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(120, 81);
+            label2.Name = "label2";
+            label2.Size = new Size(38, 20);
+            label2.TabIndex = 14;
+            label2.Text = "Title";
             // 
             // KDramaForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightSalmon;
-            ClientSize = new Size(507, 408);
-            Controls.Add(label6);
-            Controls.Add(label5);
-            Controls.Add(label4);
+            ClientSize = new Size(419, 408);
+            Controls.Add(label2);
+            Controls.Add(cmbTitle);
+            Controls.Add(lblProgress);
+            Controls.Add(lblCompEps);
+            Controls.Add(lblTotalEps);
             Controls.Add(lblGenre);
             Controls.Add(lblTitle);
             Controls.Add(btnCancel);
@@ -209,8 +228,10 @@
         private Button btnCancel;
         private Label lblTitle;
         private Label lblGenre;
-        private Label label4;
-        private Label label5;
-        private Label label6;
+        private Label lblTotalEps;
+        private Label lblCompEps;
+        private Label lblProgress;
+        private ComboBox cmbTitle;
+        private Label label2;
     }
 }

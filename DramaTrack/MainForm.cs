@@ -31,30 +31,24 @@ namespace DramaTrack
             dataGridView1.DataSource = dt;
         }
 
-        private void btnEdit_Click(object sender, EventArgs e)
-        {
-            // Check if any row is selected
-            if (dataGridView1.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Please select a KDrama entry to edit.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            // Enable DataGridView editing mode
-            dataGridView1.ReadOnly = false;
-            dataGridView1.BeginEdit(true);
-        }
-
         private void btnModifyKdrama_Click(object sender, EventArgs e)
         {
-            KDramaForm form = new KDramaForm();
-            form.ShowDialog();
+            KDramaForm form = new KDramaForm(connectionString, true);
+            DialogResult result = form.ShowDialog();
+
+            // If the user confirms the addition
+            if (result == DialogResult.OK)
+            {
+
+                // Refresh the DataGridView to show the new entry
+                PopulateKDramaDataGridView();
+            }
         }
 
         private void btnNewKdrama_Click(object sender, EventArgs e)
         {
             // Create a form for adding a new KDrama entry
-            KDramaForm addForm = new KDramaForm();
+            KDramaForm addForm = new KDramaForm(connectionString, false);
 
             // Show the form as a dialog
             DialogResult result = addForm.ShowDialog();
@@ -62,26 +56,6 @@ namespace DramaTrack
             // If the user confirms the addition
             if (result == DialogResult.OK)
             {
-                // Insert the new KDrama entry into the database
-                using (SQLiteConnection conn = new SQLiteConnection(connectionString))
-                {
-                    conn.Open();
-
-                    // Construct the INSERT query
-                    string insertQuery = "INSERT INTO KDramaList (Title, Genre, TotalEpisodes, ProgressStatus) VALUES (@Title, @Genre, @TotalEpisodes, @ProgressStatus)";
-
-                    using (SQLiteCommand cmd = new SQLiteCommand(insertQuery, conn))
-                    {
-                        // Set parameter values from the form input
-                        cmd.Parameters.AddWithValue("@Title", addForm.Title);
-                        cmd.Parameters.AddWithValue("@Genre", addForm.Genre);
-                        cmd.Parameters.AddWithValue("@TotalEpisodes", addForm.TotalEpisodes);
-                        cmd.Parameters.AddWithValue("@ProgressStatus", addForm.ProgressStatus);
-
-                        // Execute the INSERT query
-                        cmd.ExecuteNonQuery();
-                    }
-                }
 
                 // Refresh the DataGridView to show the new entry
                 PopulateKDramaDataGridView();
@@ -103,20 +77,24 @@ namespace DramaTrack
             // If user confirms deletion
             if (result == DialogResult.OK)
             {
+                // Get the title of the selected KDrama entry
+                string title = dataGridView1.SelectedRows[0].Cells["Title"].Value.ToString();
+
                 // Delete the selected KDrama entry from the database
-                int dramaId = Convert.ToInt32(dataGridView1.CurrentRow.Cells["ID"].Value);
                 using (SQLiteConnection conn = new SQLiteConnection(connectionString))
                 {
                     conn.Open();
-                    string deleteQuery = $"DELETE FROM KDramaList WHERE ID = {dramaId}";
-                    using SQLiteCommand cmd = new SQLiteCommand(deleteQuery, conn);
-                    cmd.ExecuteNonQuery();
+                    string deleteQuery = $"DELETE FROM KDramaList WHERE Title = @title";
+                    using (SQLiteCommand cmd = new SQLiteCommand(deleteQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@title", title);
+                        cmd.ExecuteNonQuery();
+                    }
                 }
 
                 // Refresh the DataGridView
                 PopulateKDramaDataGridView();
             }
         }
-
     }
 }

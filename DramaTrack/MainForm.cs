@@ -15,7 +15,9 @@ namespace DramaTrack
         }
 
         private void PopulateKDramaDataGridView()
-        {
+        {            
+            DataTable dt = new DataTable();
+
             //connection object
             SQLiteConnection conn = new SQLiteConnection(connectionString);
             conn.Open();
@@ -24,10 +26,10 @@ namespace DramaTrack
             string query = "SELECT * from KDramaList";
             SQLiteCommand cmd = new SQLiteCommand(query, conn);
 
-            DataTable dt = new DataTable();
-            SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
-            adapter.Fill(dt);
-
+            using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd))
+            {
+                adapter.Fill(dt);
+            }
             dataGridView1.DataSource = dt;
         }
 
@@ -78,7 +80,7 @@ namespace DramaTrack
             if (result == DialogResult.OK)
             {
                 // Get the title of the selected KDrama entry
-                string title = dataGridView1.SelectedRows[0].Cells["Title"].Value.ToString();
+                string title = dataGridView1.SelectedRows[0].Cells["Title"].Value?.ToString() ?? ""; // Using null-conditional operator and providing a fallback value
 
                 // Delete the selected KDrama entry from the database
                 using (SQLiteConnection conn = new SQLiteConnection(connectionString))

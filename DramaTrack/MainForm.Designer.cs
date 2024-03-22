@@ -1,4 +1,6 @@
-﻿namespace DramaTrack
+﻿using System.Windows.Forms;
+
+namespace DramaTrack
 {
     partial class MainForm
     {
@@ -42,7 +44,7 @@
             btnModifyKdrama.BackColor = Color.Lavender;
             btnModifyKdrama.Font = new Font("Cambria", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnModifyKdrama.ForeColor = Color.MidnightBlue;
-            btnModifyKdrama.Location = new Point(399, 112);
+            btnModifyKdrama.Location = new Point(671, 112);
             btnModifyKdrama.Name = "btnModifyKdrama";
             btnModifyKdrama.Size = new Size(163, 59);
             btnModifyKdrama.TabIndex = 0;
@@ -68,7 +70,7 @@
             lblWelcome.Anchor = AnchorStyles.Top;
             lblWelcome.AutoSize = true;
             lblWelcome.Font = new Font("Lucida Calligraphy", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblWelcome.Location = new Point(230, 54);
+            lblWelcome.Location = new Point(366, 54);
             lblWelcome.Name = "lblWelcome";
             lblWelcome.Size = new Size(142, 23);
             lblWelcome.TabIndex = 2;
@@ -79,31 +81,30 @@
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.AllowUserToDeleteRows = false;
             dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells;
             dataGridView1.BackgroundColor = Color.MistyRose;
             dataGridView1.BorderStyle = BorderStyle.Fixed3D;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(0, 228);
+            dataGridView1.Location = new Point(0, 249);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(574, 190);
+            dataGridView1.Size = new Size(846, 250);
             dataGridView1.TabIndex = 3;
             // 
             // btnDelete
             // 
+            btnDelete.Anchor = AnchorStyles.Top;
             btnDelete.BackColor = Color.Lavender;
             btnDelete.Font = new Font("Cambria", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnDelete.ForeColor = Color.MidnightBlue;
-            btnDelete.Location = new Point(251, 191);
+            btnDelete.Location = new Point(387, 191);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(84, 31);
             btnDelete.TabIndex = 4;
             btnDelete.Text = "Delete";
             btnDelete.UseVisualStyleBackColor = false;
-            // Set the anchor property for btnDelete
-            btnDelete.Anchor = AnchorStyles.Top;
             btnDelete.Click += btnDelete_Click;
             // 
             // MainForm
@@ -111,7 +112,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Plum;
-            ClientSize = new Size(574, 418);
+            ClientSize = new Size(846, 499);
             Controls.Add(btnDelete);
             Controls.Add(dataGridView1);
             Controls.Add(lblWelcome);

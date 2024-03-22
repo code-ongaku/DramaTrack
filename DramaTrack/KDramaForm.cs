@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*
+ * KDramaForm.cs
+ * This form is used for addition and modification of KDrama entries
+ * 
+ * 
+ */
+
+using System;
 using System.Data.SQLite;
 using System.Windows.Forms;
 
@@ -6,15 +13,9 @@ namespace DramaTrack
 {
     public partial class KDramaForm : Form
     {
-        public string Title { get { return txtTitle.Text; } }
-        public string Genre { get { return txtGenre.Text; } }
-        public int TotalEpisodes { get { return int.Parse(txtTotalEps.Text); } }
-        public int CompletedEpisodes { get { return int.Parse(txtCompleted.Text); } }
-        public string ProgressStatus { get { return txtProgress.Text; } }
-
         private SQLiteConnection connection;
         private bool isEditMode = false;
-        private string chosenTitle;
+        private string chosenTitle = "";
 
         public KDramaForm(string conn, bool editMode)
         {
@@ -22,6 +23,9 @@ namespace DramaTrack
             connection = new SQLiteConnection(conn);
             isEditMode = editMode;
             cmbTitle.Visible = editMode;
+            label1.Visible = !editMode;
+            label2.Visible = editMode;
+            label3.Visible = editMode;
             // Populate ComboBox with titles
             if (isEditMode)
             {
@@ -41,7 +45,12 @@ namespace DramaTrack
                     SQLiteDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        cmbTitle.Items.Add(reader["Title"].ToString());
+                        // ensure that reader["Title"] is not null
+                        var title = reader["Title"]?.ToString();
+                        if (title != null)
+                        {
+                            cmbTitle.Items.Add(title);
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -75,7 +84,7 @@ namespace DramaTrack
 
             using (SQLiteCommand cmd = new SQLiteCommand(query, connection))
             {
-                txtTitleT.Text = titleChosen;
+                txtTitle.Text = titleChosen;
                 try
                 {
                     connection.Open();
@@ -103,36 +112,45 @@ namespace DramaTrack
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            int totalEpisodes;
-            if (!int.TryParse(txtTotalEps.Text, out totalEpisodes))
-            {
-                MessageBox.Show("Please enter a valid number for Total Episodes.", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
             if (isEditMode)
             {
-                UpdateKDramaInDatabase();
+                if(cmbTitle.SelectedItem != null)
+                {
+                    string query = "UPDATE KDramaList SET Title = @title, Genre = @genre, TotalEpisodes = @totalEpisodes, CompletedEpisodes = @completedEpisodes, ProgressStatus = @progressStatus WHERE Title = @title";
+                    SaveKDramaToDatabase(query);
+
+                    DialogResult = DialogResult.OK;
+                }
+                else
+                {
+                    MessageBox.Show("Please select a title.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {
-                SaveKDramaToDatabase();
-            }
+                if (!string.IsNullOrWhiteSpace(txtTitle.Text) && !string.IsNullOrWhiteSpace(txtGenre.Text) && !string.IsNullOrWhiteSpace(txtTotalEps.Text) && !string.IsNullOrWhiteSpace(txtProgress.Text))
+                {
+                    string query = "INSERT INTO KDramaList (Title, Genre, TotalEpisodes, CompletedEpisodes, ProgressStatus) VALUES (@title, @genre, @totalEpisodes, @completedEpisodes, @progressStatus)";
+                    SaveKDramaToDatabase(query);
 
-            DialogResult = DialogResult.OK;
+                    DialogResult = DialogResult.OK;
+                }
+                else
+                {
+                    MessageBox.Show("Please ensure the title, genre, total episodes and progress boxes are filled.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
-        private void SaveKDramaToDatabase()
+        private void SaveKDramaToDatabase(string query)
         {
-            string query = "INSERT INTO KDramaList (Title, Genre, TotalEpisodes, CompletedEpisodes, ProgressStatus) VALUES (@title, @genre, @totalEpisodes, @completedEpisodes, @progressStatus)";
-
             using (SQLiteCommand cmd = new SQLiteCommand(query, connection))
             {
-                cmd.Parameters.AddWithValue("@title", Title);
-                cmd.Parameters.AddWithValue("@genre", Genre);
-                cmd.Parameters.AddWithValue("@totalEpisodes", TotalEpisodes);
-                cmd.Parameters.AddWithValue("@completedEpisodes", CompletedEpisodes);
-                cmd.Parameters.AddWithValue("@progressStatus", ProgressStatus);
+                cmd.Parameters.AddWithValue("@title", txtTitle.Text);
+                cmd.Parameters.AddWithValue("@genre", txtGenre.Text);
+                cmd.Parameters.AddWithValue("@totalEpisodes", txtTotalEps.Text);
+                cmd.Parameters.AddWithValue("@completedEpisodes", txtCompleted.Text);
+                cmd.Parameters.AddWithValue("@progressStatus", txtProgress.Text);
 
                 try
                 {
@@ -142,34 +160,6 @@ namespace DramaTrack
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error saving KDrama: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                finally
-                {
-                    connection.Close();
-                }
-            }
-        }
-
-        private void UpdateKDramaInDatabase()
-        {
-            string query = "UPDATE KDramaList SET Title = @title, Genre = @genre, TotalEpisodes = @totalEpisodes, CompletedEpisodes = @completedEpisodes, ProgressStatus = @progressStatus WHERE Title = @title";
-
-            using (SQLiteCommand cmd = new SQLiteCommand(query, connection))
-            {
-                cmd.Parameters.AddWithValue("@title", Title);
-                cmd.Parameters.AddWithValue("@genre", Genre);
-                cmd.Parameters.AddWithValue("@totalEpisodes", TotalEpisodes);
-                cmd.Parameters.AddWithValue("@completedEpisodes", CompletedEpisodes);
-                cmd.Parameters.AddWithValue("@progressStatus", ProgressStatus);
-
-                try
-                {
-                    connection.Open();
-                    cmd.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error updating KDrama: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 finally
                 {

@@ -43,19 +43,19 @@
             lblProgress = new Label();
             cmbTitle = new ComboBox();
             label2 = new Label();
+            label3 = new Label();
             SuspendLayout();
             // 
             // label1
             // 
-            label1.Anchor = AnchorStyles.Top;
             label1.AutoSize = true;
             label1.Font = new Font("Cambria", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.DarkMagenta;
-            label1.Location = new Point(107, 32);
+            label1.Location = new Point(195, 31);
             label1.Name = "label1";
-            label1.Size = new Size(157, 27);
+            label1.Size = new Size(59, 27);
             label1.TabIndex = 0;
-            label1.Text = "ADD/MODIFY";
+            label1.Text = "ADD";
             // 
             // txtTitle
             // 
@@ -115,6 +115,7 @@
             // 
             // btnCancel
             // 
+            btnCancel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnCancel.BackColor = Color.MistyRose;
             btnCancel.Location = new Point(271, 349);
             btnCancel.Name = "btnCancel";
@@ -178,7 +179,7 @@
             cmbTitle.Name = "cmbTitle";
             cmbTitle.Size = new Size(124, 28);
             cmbTitle.TabIndex = 13;
-            cmbTitle.SelectedIndexChanged += new System.EventHandler(cmbTitle_SelectedIndexChanged);
+            cmbTitle.SelectedIndexChanged += cmbTitle_SelectedIndexChanged;
             // 
             // label2
             // 
@@ -189,12 +190,24 @@
             label2.TabIndex = 14;
             label2.Text = "Title";
             // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Cambria", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.ForeColor = Color.DarkMagenta;
+            label3.Location = new Point(174, 31);
+            label3.Name = "label3";
+            label3.Size = new Size(98, 27);
+            label3.TabIndex = 15;
+            label3.Text = "MODIFY";
+            // 
             // KDramaForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightSalmon;
             ClientSize = new Size(419, 408);
+            Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(cmbTitle);
             Controls.Add(lblProgress);
@@ -233,5 +246,6 @@
         private Label lblProgress;
         private ComboBox cmbTitle;
         private Label label2;
+        private Label label3;
     }
 }
